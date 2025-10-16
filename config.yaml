@@ -1,0 +1,111 @@
+# Cybersecurity News Application Configuration
+
+# Application settings
+app:
+  name: "Cyber News App"
+  version: "1.0.0"
+  cache_dir: "./cache"
+  data_dir: "./data"
+  log_level: "INFO"
+
+# News sources configuration
+news_sources:
+  rss_feeds:
+    - name: "Krebs on Security"
+      url: "https://krebsonsecurity.com/feed/"
+      category: "general"
+      enabled: true
+      
+    - name: "The Hacker News"
+      url: "https://feeds.feedburner.com/TheHackersNews"
+      category: "general"
+      enabled: true
+      
+    - name: "Dark Reading"
+      url: "https://www.darkreading.com/rss.xml"
+      category: "general"
+      enabled: true
+      
+    - name: "Threatpost"
+      url: "https://threatpost.com/feed/"
+      category: "threats"
+      enabled: true
+      
+    - name: "SecurityWeek"
+      url: "https://www.securityweek.com/feed/"
+      category: "industry"
+      enabled: true
+      
+    - name: "BleepingComputer"
+      url: "https://www.bleepingcomputer.com/feed/"
+      category: "technical"
+      enabled: true
+      
+    - name: "SANS Internet Storm Center"
+      url: "https://isc.sans.edu/rssfeed.xml"
+      category: "research"
+      enabled: true
+
+  # Government and official sources
+  official_sources:
+    - name: "US-CERT Alerts"
+      url: "https://www.cisa.gov/uscert/ncas/alerts.xml"
+      category: "alerts"
+      enabled: true
+      
+    - name: "CVE Recent Entries"
+      url: "https://cve.mitre.org/data/downloads/allitems-cvrf.xml"
+      category: "vulnerabilities"
+      enabled: false  # Can be heavy
+
+# Content filtering and processing
+content:
+  # Keywords to prioritize
+  priority_keywords:
+    - "zero-day"
+    - "ransomware"
+    - "data breach"
+    - "vulnerability"
+    - "exploit"
+    - "malware"
+    - "phishing"
+    - "APT"
+    - "nation-state"
+    - "supply chain"
+    
+  # Words to filter out spam/irrelevant content
+  exclude_keywords:
+    - "advertisement"
+    - "sponsored"
+    - "marketing"
+    
+  # Minimum article length (characters)
+  min_article_length: 100
+  
+  # Maximum articles per source per day
+  max_articles_per_source: 20
+
+# Scheduling
+schedule:
+  # When to fetch news (24-hour format)
+  fetch_times:
+    - "06:00"  # Morning
+    - "12:00"  # Noon
+    - "18:00"  # Evening
+    
+  # How many days to keep cached news
+  cache_retention_days: 7
+
+# Web interface settings
+web:
+  host: "127.0.0.1"
+  port: 5000
+  debug: false
+  
+# CLI display settings
+cli:
+  max_articles_display: 15
+  show_source: true
+  show_date: true
+  show_summary: true
+  color_output: true

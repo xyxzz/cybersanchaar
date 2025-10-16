@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔒 Cyber Security News</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        select, input, button {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-update {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+        }
+
+        .btn-export {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .news-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .news-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .article {
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .article.high-priority {
+            border-left: 5px solid #e74c3c;
+            background: linear-gradient(90deg, rgba(231, 76, 60, 0.05) 0%, transparent 100%);
+        }
+
+        .article.medium-priority {
+            border-left: 5px solid #f39c12;
+            background: linear-gradient(90deg, rgba(243, 156, 18, 0.05) 0%, transparent 100%);
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 15px;
+        }
+
+        .article-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .article-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .article-title a:hover {
+            color: #667eea;
+        }
+
+        .priority-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .priority-badge.medium {
+            background: #f39c12;
+        }
+
+        .priority-badge.low {
+            background: #95a5a6;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+            color: #666;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .article-summary {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .article-keywords {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .keyword-tag {
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        .no-articles {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .no-articles h3 {
+            margin-bottom: 10px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .control-group {
+                width: 100%;
+            }
+
+            .news-stats {
+                flex-direction: column;
+            }
+
+            .article-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔒 Cyber Security News</h1>
+            <p>Stay informed with the latest cybersecurity threats and news</p>
+        </div>
+
+        <div class="controls">
+            <div class="controls-row">
+                <div class="control-group">
+                    <label for="daysSelect">Days Back</label>
+                    <select id="daysSelect">
+                        <option value="1">Today</option>
+                        <option value="2">Last 2 days</option>
+                        <option value="3">Last 3 days</option>
+                        <option value="7">Last week</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="categorySelect">Category</label>
+                    <select id="categorySelect">
+                        <option value="">All Categories</option>
+                        <option value="general">General</option>
+                        <option value="threats">Threats</option>
+                        <option value="vulnerabilities">Vulnerabilities</option>
+                        <option value="alerts">Alerts</option>
+                        <option value="industry">Industry</option>
+                        <option value="research">Research</option>
+                        <option value="technical">Technical</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="limitSelect">Limit</label>
+                    <select id="limitSelect">
+                        <option value="15">15 articles</option>
+                        <option value="25">25 articles</option>
+                        <option value="50">50 articles</option>
+                        <option value="100">100 articles</option>
+                    </select>
+                </div>
+
+                <button onclick="loadNews()" id="loadBtn">📰 Load News</button>
+                <button onclick="updateNews()" id="updateBtn" class="btn-update">🔄 Update News</button>
+                <button onclick="exportNews()" id="exportBtn" class="btn-export">📁 Export</button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <div>Loading news articles...</div>
+        </div>
+
+        <div id="newsContainer" class="news-container">
+            <div class="no-articles">
+                <h3>📭 No articles loaded</h3>
+                <p>Click "Load News" to fetch the latest cybersecurity news</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentArticles = [];
+
+        async function loadNews() {
+            const loadBtn = document.getElementById('loadBtn');
+            const loading = document.getElementById('loading');
+            const newsContainer = document.getElementById('newsContainer');
+            
+            // Get parameters
+            const days = document.getElementById('daysSelect').value;
+            const category = document.getElementById('categorySelect').value;
+            const limit = document.getElementById('limitSelect').value;
+            
+            // Show loading
+            loadBtn.disabled = true;
+            loading.style.display = 'block';
+            newsContainer.style.display = 'none';
+            
+            try {
+                let url = `/api/news?days=${days}&limit=${limit}`;
+                if (category) {
+                    url += `&categories=${category}`;
+                }
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentArticles = data.articles;
+                    displayArticles(data.articles);
+                } else {
+                    throw new Error(data.error || 'Failed to load news');
+                }
+            } catch (error) {
+                console.error('Error loading news:', error);
+                newsContainer.innerHTML = `
+                    <div class="no-articles">
+                        <h3>❌ Error loading news</h3>
+                        <p>${error.message}</p>
+                        <p>Try updating the news first or check if the server is running.</p>
+                    </div>
+                `;
+                newsContainer.style.display = 'block';
+            } finally {
+                loadBtn.disabled = false;
+                loading.style.display = 'none';
+            }
+        }
+
+        async function updateNews() {
+            const updateBtn = document.getElementById('updateBtn');
+            const loading = document.getElementById('loading');
+            
+            updateBtn.disabled = true;
+            updateBtn.textContent = '🔄 Updating...';
+            loading.style.display = 'block';
+            
+            try {
+                const response = await fetch('/api/update');
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(`✅ Successfully updated ${data.article_count} articles!`);
+                    // Automatically reload news after update
+                    await loadNews();
+                } else {
+                    throw new Error(data.error || 'Failed to update news');
+                }
+            } catch (error) {
+                console.error('Error updating news:', error);
+                alert(`❌ Error updating news: ${error.message}`);
+            } finally {
+                updateBtn.disabled = false;
+                updateBtn.textContent = '🔄 Update News';
+                loading.style.display = 'none';
+            }
+        }
+
+        function displayArticles(articles) {
+            const newsContainer = document.getElementById('newsContainer');
+            
+            if (articles.length === 0) {
+                newsContainer.innerHTML = `
+                    <div class="no-articles">
+                        <h3>📭 No articles found</h3>
+                        <p>Try adjusting your filters or updating the news.</p>
+                    </div>
+                `;
+                newsContainer.style.display = 'block';
+                return;
+            }
+
+            // Calculate statistics
+            const highPriorityCount = articles.filter(a => a.priority_score > 20).length;
+            const mediumPriorityCount = articles.filter(a => a.priority_score > 10 && a.priority_score <= 20).length;
+            const sources = [...new Set(articles.map(a => a.source))].length;
+            
+            let html = `
+                <div class="news-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">${articles.length}</div>
+                        <div class="stat-label">Total Articles</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${highPriorityCount}</div>
+                        <div class="stat-label">High Priority</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${mediumPriorityCount}</div>
+                        <div class="stat-label">Medium Priority</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${sources}</div>
+                        <div class="stat-label">Sources</div>
+                    </div>
+                </div>
+            `;
+
+            articles.forEach(article => {
+                const priorityClass = article.priority_score > 20 ? 'high-priority' : 
+                                    article.priority_score > 10 ? 'medium-priority' : '';
+                
+                const priorityBadge = article.priority_score > 20 ? 
+                    `<span class="priority-badge">🔥 ${article.priority_score}</span>` :
+                    article.priority_score > 10 ? 
+                    `<span class="priority-badge medium">⚡ ${article.priority_score}</span>` :
+                    `<span class="priority-badge low">${article.priority_score}</span>`;
+
+                const publishedDate = new Date(article.published_date);
+                const formattedDate = publishedDate.toLocaleDateString() + ' ' + 
+                                   publishedDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+                const keywordTags = article.keywords ? 
+                    article.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('') : '';
+
+                html += `
+                    <div class="article ${priorityClass}">
+                        <div class="article-header">
+                            <h3 class="article-title">
+                                <a href="${article.url}" target="_blank">${article.title}</a>
+                            </h3>
+                            ${priorityBadge}
+                        </div>
+                        
+                        <div class="article-meta">
+                            <span class="meta-item">📌 ${article.source}</span>
+                            <span class="meta-item">📅 ${formattedDate}</span>
+                            <span class="meta-item">#${article.category}</span>
+                        </div>
+                        
+                        ${article.summary ? `<div class="article-summary">${article.summary}</div>` : ''}
+                        
+                        ${keywordTags ? `<div class="article-keywords">${keywordTags}</div>` : ''}
+                    </div>
+                `;
+            });
+
+            newsContainer.innerHTML = html;
+            newsContainer.style.display = 'block';
+        }
+
+        function exportNews() {
+            if (currentArticles.length === 0) {
+                alert('No articles to export. Load news first.');
+                return;
+            }
+
+            const dataStr = JSON.stringify(currentArticles, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `cybernews_export_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        // Load news on page load
+        window.addEventListener('load', loadNews);
+    </script>
+</body>
+</html>
