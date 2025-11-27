@@ -98,9 +98,9 @@ schedule:
 
 # Web interface settings
 web:
-  host: "127.0.0.1"
+  host: "0.0.0.0"  # Changed for production deployment
   port: 5000
-  debug: false
+  debug: false  # Keep false in production for security
   
 # CLI display settings
 cli:
