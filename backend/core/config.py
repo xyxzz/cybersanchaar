@@ -28,16 +28,25 @@ class Config:
     
     def _load_config(self) -> Dict[str, Any]:
         """Load configuration from YAML file"""
-        # Try to find config.yaml in the project root
+        # Try multiple locations for config.yaml
         current_dir = Path(__file__).parent
-        config_path = current_dir.parent.parent / "config.yaml"
+        env_config_path = os.environ.get('CONFIG_PATH', '')
         
-        if not config_path.exists():
-            # Fallback to relative path
-            config_path = Path(self.config_file)
+        possible_paths = [
+            Path(env_config_path) if env_config_path else None,  # Environment variable (only if set)
+            Path.cwd() / "config.yaml",               # Current working directory (Docker)
+            current_dir.parent.parent / "config.yaml", # Project root (development)
+            Path(self.config_file),                    # Fallback to relative path
+        ]
         
-        if not config_path.exists():
-            raise FileNotFoundError(f"Configuration file not found: {config_path}")
+        config_path = None
+        for path in possible_paths:
+            if path and path.exists() and path.is_file():
+                config_path = path
+                break
+        
+        if not config_path:
+            raise FileNotFoundError(f"Configuration file not found. Searched: {[str(p) for p in possible_paths if p]}")
         
         with open(config_path, 'r', encoding='utf-8') as file:
             return yaml.safe_load(file)
@@ -63,24 +72,21 @@ class Config:
     
     @property
     def cache_dir(self) -> str:
-        # Use absolute path relative to project root
-        current_dir = Path(__file__).parent
-        cache_path = current_dir.parent.parent / self.config_data.get('app', {}).get('cache_dir', './cache')
-        return str(cache_path)
+        # Use environment variable or config, default to ./cache
+        cache_path = os.environ.get('CACHE_DIR') or self.config_data.get('app', {}).get('cache_dir', './cache')
+        return str(Path(cache_path).resolve())
     
     @property
     def data_dir(self) -> str:
-        # Use absolute path relative to project root
-        current_dir = Path(__file__).parent
-        data_path = current_dir.parent.parent / self.config_data.get('app', {}).get('data_dir', './data')
-        return str(data_path)
+        # Use environment variable or config, default to ./data
+        data_path = os.environ.get('DATA_DIR') or self.config_data.get('app', {}).get('data_dir', './data')
+        return str(Path(data_path).resolve())
     
     @property
     def logs_dir(self) -> str:
-        # Use absolute path relative to project root
-        current_dir = Path(__file__).parent
-        logs_path = current_dir.parent.parent / 'logs'
-        return str(logs_path)
+        # Use environment variable or default to ./logs
+        logs_path = os.environ.get('LOGS_DIR') or './logs'
+        return str(Path(logs_path).resolve())
     
     @property
     def log_level(self) -> str:

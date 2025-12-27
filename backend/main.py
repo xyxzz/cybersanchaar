@@ -44,6 +44,8 @@ app.add_middleware(
         "http://127.0.0.1:3000",
         "http://localhost:3001",
         "http://127.0.0.1:3001",
+        "http://frontend:3000",
+        "https://cybersanchaar.vartallap.in"   # Docker service name                      # Allow all origins in production (configure as needed)
     ],
     allow_credentials=True,
     allow_methods=["*"],

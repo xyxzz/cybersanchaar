@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cybernews-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./cache:/app/cache
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml:ro
+    env_file:
+      - .env
+    networks:
+      - cybernews-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:5000}
+    container_name: cybernews-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - cybernews-network
+    restart: unless-stopped
+
+networks:
+  cybernews-network:
+    driver: bridge
+
+volumes:
+  cache:
+  logs:
+  data:
+
