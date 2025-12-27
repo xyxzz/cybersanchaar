@@ -1,177 +1,165 @@
 # 🔒 Cybersecurity News Application
 
-A comprehensive cybersecurity news aggregator that fetches, processes, and displays daily cybersecurity news from multiple trusted sources. Built with Python, featuring both CLI and web interfaces.
+A modern full-stack cybersecurity news aggregator built with **Next.js (React)** and **FastAPI**. Fetches, processes, and displays daily cybersecurity news from multiple trusted sources with intelligent prioritization.
 
 ## ✨ Features
 
-- **Multi-Source Aggregation**: Fetch news from 7+ trusted cybersecurity sources including Krebs on Security, The Hacker News, Dark Reading, and more
+- **Modern Stack**: Next.js 14 with TypeScript and Tailwind CSS for the frontend, FastAPI for the backend
+- **Multi-Source Aggregation**: Fetch news from 7+ trusted cybersecurity sources
 - **Smart Prioritization**: Automatically prioritizes articles based on keywords like "zero-day", "ransomware", "data breach"
 - **Duplicate Detection**: Intelligent deduplication to avoid showing the same story multiple times
-- **Multiple Interfaces**: 
-  - Beautiful command-line interface with Rich formatting
-  - Modern web interface with responsive design
-  - RESTful API for integration
-- **Scheduled Updates**: Automatic news fetching at configurable times
-- **Export Functionality**: Export articles to JSON or CSV formats
-- **Caching System**: Local caching to reduce API calls and improve performance
-- **Content Filtering**: Filter by categories, sources, keywords, and date ranges
+- **Real-time Filtering**: Filter by date range, categories, and article limit
+- **Beautiful UI**: Responsive design with gradient backgrounds and smooth animations
+- **Export Functionality**: Export articles to JSON format
+- **API Documentation**: Automatic OpenAPI/Swagger documentation
 
 ## 📁 Project Structure
 
 ```
 Cyber News/
-├── cyber_news_app.py          # Main application entry point
-├── config.yaml                # Configuration file
-├── requirements.txt           # Python dependencies
-├── README.md                  # This file
-├── src/                       # Source code modules
-│   ├── __init__.py
-│   ├── config.py              # Configuration management
-│   ├── news_aggregator.py     # News fetching and processing
-│   ├── cli_interface.py       # Command-line interface
-│   ├── web_interface.py       # Web interface (Flask)
-│   └── scheduler.py           # Scheduling and daemon functionality
-├── templates/                 # Web interface templates
-│   └── index.html
-├── data/                      # Data storage
-├── cache/                     # Cached articles
-└── logs/                      # Application logs
+├── frontend/                 # Next.js application
+│   ├── app/                 # Next.js app router
+│   │   ├── layout.tsx       # Root layout
+│   │   ├── page.tsx         # Main page
+│   │   └── globals.css      # Global styles
+│   ├── components/          # React components
+│   │   ├── NewsArticle.tsx
+│   │   ├── FilterControls.tsx
+│   │   └── Statistics.tsx
+│   ├── contexts/            # React contexts
+│   │   └── NewsContext.tsx
+│   ├── lib/                 # Utilities
+│   │   ├── api.ts           # API client
+│   │   └── types.ts         # TypeScript types
+│   ├── package.json
+│   └── next.config.ts
+├── backend/                 # FastAPI application
+│   ├── api/                 # API routes
+│   │   └── news.py
+│   ├── core/                # Core logic
+│   │   ├── config.py
+│   │   └── news_aggregator.py
+│   ├── models/              # Pydantic models
+│   │   └── schemas.py
+│   ├── main.py              # FastAPI entry point
+│   └── requirements.txt
+├── cache/                   # Cached articles
+├── logs/                    # Application logs
+├── config.yaml              # Configuration file
+└── README.md
 ```
 
 ## 🚀 Quick Start
 
-### 1. Setup Virtual Environment
+### Prerequisites
+
+- **Python 3.10+**
+- **Node.js 18+**
+- **npm or yarn**
+
+### 1. Backend Setup
 
 ```bash
-# Create virtual environment (recommended)
-python3 -m venv news
+# Navigate to backend directory
+cd backend
 
-# Activate virtual environment
-source news/bin/activate  # On Linux/Mac
-# OR
-news\Scripts\activate.bat  # On Windows
+# Create and activate virtual environment (recommended)
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install Python dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# For enhanced CLI output (optional but recommended)
-pip install rich
-
-# For web interface (optional)
-pip install flask flask-cors
-
-# For scheduling (optional)
-pip install schedule
+# Start the FastAPI server
+uvicorn main:app --reload --port 8000
 ```
 
-**Note**: Always activate the virtual environment before running commands:
-```bash
-source news/bin/activate  # Run this first
-python cyber_news_app.py --help
-```
+The backend will be available at `http://localhost:8000`
+- API Documentation: `http://localhost:8000/docs`
+- Alternative docs: `http://localhost:8000/redoc`
 
-### 2. Update News Sources
+### 2. Frontend Setup
 
 ```bash
-# Fetch latest news from all sources
-python cyber_news_app.py --update
+# Navigate to frontend directory (in a new terminal)
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
 
-### 3. View News
+The frontend will be available at `http://localhost:3000`
 
+### 3. Initial Data Fetch
+
+Once both servers are running:
+1. Open `http://localhost:3000` in your browser
+2. Click the **"🔄 Update News"** button to fetch the latest articles
+3. Click **"📰 Load News"** to display the articles
+
+## 🖥️ Usage
+
+### Web Interface
+
+The web interface provides an intuitive way to browse cybersecurity news:
+
+1. **Filter Controls**:
+   - **Days Back**: Choose how many days of news to display (1-7 days)
+   - **Category**: Filter by specific categories (general, threats, vulnerabilities, etc.)
+   - **Limit**: Set maximum number of articles to display (15-100)
+
+2. **Actions**:
+   - **Load News**: Fetch and display articles based on current filters
+   - **Update News**: Trigger a fresh fetch from all news sources
+   - **Export**: Download articles as JSON file
+
+3. **Article Display**:
+   - Articles are color-coded by priority (high/medium/low)
+   - Shows source, publication date, category, and keywords
+   - Click article titles to open in new tab
+
+### API Endpoints
+
+#### GET `/api/news`
+Retrieve news articles with optional filtering.
+
+**Query Parameters**:
+- `days` (int): Number of days back (1-30, default: 1)
+- `categories` (list): Filter by categories
+- `sources` (list): Filter by sources
+- `limit` (int): Maximum articles (1-200, default: 50)
+
+**Example**:
 ```bash
-# Show today's news (default)
-python cyber_news_app.py
-
-# Show last 3 days of news
-python cyber_news_app.py --show --days 3
-
-# Filter by category
-python cyber_news_app.py --show --categories threats vulnerabilities
-
-# Filter by source
-python cyber_news_app.py --show --sources "Krebs" "Dark Reading"
+curl "http://localhost:8000/api/news?days=3&limit=25"
 ```
 
-## 🖥️ Command Line Usage
+#### POST `/api/update`
+Trigger a news update from all configured sources.
 
-### Basic Commands
-
+**Example**:
 ```bash
-# Show help
-python cyber_news_app.py --help
-
-# Update news from all sources
-python cyber_news_app.py --update
-
-# Show today's news
-python cyber_news_app.py --show
-
-# Show last week's news
-python cyber_news_app.py --show --days 7
+curl -X POST "http://localhost:8000/api/update"
 ```
 
-### Filtering Options
+#### GET `/api/sources`
+Get all configured news sources.
 
+**Example**:
 ```bash
-# Filter by categories
-python cyber_news_app.py --show --categories general threats
-
-# Filter by specific sources
-python cyber_news_app.py --show --sources "Krebs on Security" "SANS"
-
-# Combine filters
-python cyber_news_app.py --show --days 3 --categories vulnerabilities --sources "Threatpost"
+curl "http://localhost:8000/api/sources"
 ```
 
-### Utility Commands
+#### GET `/api/statistics`
+Get statistics about cached articles.
 
+**Example**:
 ```bash
-# List all configured sources
-python cyber_news_app.py --sources-list
-
-# Show statistics
-python cyber_news_app.py --stats
-
-# Export articles to JSON
-python cyber_news_app.py --export json --days 7
-
-# Export articles to CSV
-python cyber_news_app.py --export csv --days 3
+curl "http://localhost:8000/api/statistics"
 ```
-
-### Scheduling
-
-```bash
-# Run as daemon with automatic updates
-python cyber_news_app.py --daemon
-
-# Check scheduler status
-python cyber_news_app.py --schedule-status
-```
-
-## 🌐 Web Interface
-
-Start the web interface for a modern, interactive experience:
-
-```bash
-# Start web server (default: http://127.0.0.1:5000)
-python cyber_news_app.py --web
-```
-
-The web interface provides:
-- Real-time article loading
-- Interactive filtering
-- Export functionality
-- Statistics dashboard
-- Responsive design for mobile devices
-
-### Web API Endpoints
-
-- `GET /api/news` - Get news articles with optional filters
-- `GET /api/sources` - Get configured news sources
-- `GET /api/update` - Trigger news update
-- `GET /api/statistics` - Get news statistics
 
 ## ⚙️ Configuration
 
@@ -199,26 +187,14 @@ content:
   exclude_keywords:
     - "advertisement"
   min_article_length: 100
+  max_articles_per_source: 20
 ```
 
-### Scheduling
+### Cache Settings
 
 ```yaml
 schedule:
-  fetch_times:
-    - "06:00"  # Morning update
-    - "12:00"  # Noon update
-    - "18:00"  # Evening update
   cache_retention_days: 7
-```
-
-### Web Interface
-
-```yaml
-web:
-  host: "127.0.0.1"
-  port: 5000
-  debug: false
 ```
 
 ## 📊 News Sources
@@ -236,106 +212,166 @@ The application fetches news from these trusted sources:
 
 ### Official Sources
 - **US-CERT Alerts** - Official cybersecurity alerts
-- **CVE Recent Entries** - Latest vulnerability disclosures
-
-## 🔧 Advanced Usage
-
-### Running as a Service
-
-Create a systemd service file for automatic startup:
-
-```ini
-[Unit]
-Description=Cybersecurity News Daemon
-After=network.target
-
-[Service]
-Type=simple
-User=your-username
-WorkingDirectory=/path/to/cyber-news
-ExecStart=/usr/bin/python3 cyber_news_app.py --daemon
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### Custom Scripts
-
-Create wrapper scripts for common tasks:
-
-```bash
-#!/bin/bash
-# daily_update.sh
-cd "/path/to/cyber-news"
-python3 cyber_news_app.py --update
-python3 cyber_news_app.py --show --days 1
-```
-
-### Integration Examples
-
-Use the API for integration with other tools:
-
-```python
-import requests
-
-# Get latest news
-response = requests.get('http://localhost:5000/api/news?days=1')
-articles = response.json()['articles']
-
-# Trigger update
-requests.get('http://localhost:5000/api/update')
-```
+- **CVE Recent Entries** - Latest vulnerability disclosures (disabled by default)
 
 ## 🛠️ Development
 
-### Adding New Sources
+### Backend Development
 
-1. Add source configuration to `config.yaml`
-2. Modify `news_aggregator.py` if special handling is needed
-3. Test with `--update` and verify articles are fetched
+```bash
+cd backend
 
-### Extending Functionality
+# Run with auto-reload
+uvicorn main:app --reload --port 8000
 
-The modular design makes it easy to extend:
-- Add new output formats in `cli_interface.py`
-- Implement additional filtering in `news_aggregator.py`
-- Create new web endpoints in `web_interface.py`
+# Run tests (if available)
+pytest
 
-## 📝 License
+# Check logs
+tail -f ../logs/fastapi.log
+```
 
-This project is open source and available under the MIT License.
+### Frontend Development
+
+```bash
+cd frontend
+
+# Development server with hot reload
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Lint code
+npm run lint
+```
+
+## 📦 Production Deployment
+
+### Backend (FastAPI)
+
+```bash
+cd backend
+
+# Install production dependencies
+pip install -r requirements.txt
+
+# Run with Gunicorn (recommended for production)
+gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000
+```
+
+### Frontend (Next.js)
+
+```bash
+cd frontend
+
+# Build the application
+npm run build
+
+# Start production server
+npm start
+```
+
+Or deploy to platforms like:
+- **Vercel** (recommended for Next.js)
+- **Netlify**
+- **AWS Amplify**
+- **Docker**
+
+## 🔧 Environment Variables
+
+Create `.env.local` in the frontend directory:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+For production, update to your production API URL.
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### Backend Issues
 
 **No articles fetched:**
 - Check internet connection
 - Verify RSS feeds are accessible
 - Check logs in `logs/` directory
+- Ensure config.yaml is properly configured
 
-**Web interface not starting:**
-- Install Flask: `pip install flask flask-cors`
-- Check if port 5000 is available
-- Review web configuration in `config.yaml`
+**Import errors:**
+- Make sure you're in the backend directory
+- Activate virtual environment
+- Reinstall dependencies: `pip install -r requirements.txt`
 
-**Scheduling not working:**
-- Install schedule: `pip install schedule`
-- Check daemon logs
-- Verify cron permissions if running as service
+### Frontend Issues
 
-### Debug Mode
+**API connection errors:**
+- Ensure backend is running on port 8000
+- Check Next.js proxy configuration in `next.config.ts`
+- Verify CORS settings in backend
 
-Enable debug logging by setting `log_level: "DEBUG"` in `config.yaml`.
+**Build errors:**
+- Delete `.next` folder and `node_modules`
+- Run `npm install` again
+- Check for TypeScript errors: `npm run lint`
+
+### Common Issues
+
+**Port already in use:**
+```bash
+# Backend (change port)
+uvicorn main:app --reload --port 8001
+
+# Frontend (change port)
+PORT=3001 npm run dev
+```
+
+**Cache issues:**
+- Clear cache directory: `rm -rf cache/*`
+- Restart both servers
+
+## 📝 API Documentation
+
+Once the backend is running, visit:
+- **Swagger UI**: http://localhost:8000/docs
+- **ReDoc**: http://localhost:8000/redoc
+
+These provide interactive API documentation with the ability to test endpoints directly.
+
+## 🎨 Customization
+
+### Styling
+
+The application uses Tailwind CSS. Customize colors and styles in:
+- `frontend/tailwind.config.ts` - Tailwind configuration
+- `frontend/app/globals.css` - Global styles
+- Component files - Component-specific styles
+
+### Adding New Sources
+
+1. Edit `config.yaml`
+2. Add new RSS feed under `news_sources.rss_feeds`
+3. Restart the backend
+4. Trigger an update from the UI
+
+## 📄 License
+
+This project is open source and available under the MIT License.
 
 ## 🤝 Contributing
 
-Feel free to submit issues, fork the repository, and create pull requests for any improvements.
+Contributions are welcome! Please feel free to submit issues, fork the repository, and create pull requests.
 
 ## 📞 Support
 
-For questions or issues, please check the logs directory for error details and ensure all dependencies are properly installed.
+For questions or issues:
+1. Check the logs directory for error details
+2. Ensure all dependencies are properly installed
+3. Verify configuration in `config.yaml`
+4. Check API documentation at `/docs`
 
 ---
 

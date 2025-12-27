@@ -1,0 +1,52 @@
+version: '3.8'
+
+# Production Docker Compose - Pulls pre-built images from ghcr.io
+# Used for EC2 deployment via GitHub Actions CI/CD
+
+services:
+  backend:
+    image: ghcr.io/${GITHUB_USERNAME:-your-username}/cybernews-backend:latest
+    container_name: cybernews-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./cache:/app/cache
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CONFIG_PATH=/app/config.yaml
+      - CACHE_DIR=/app/cache
+      - DATA_DIR=/app/data
+      - LOGS_DIR=/app/logs
+    networks:
+      - cybernews-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    image: ghcr.io/${GITHUB_USERNAME:-your-username}/cybernews-frontend:latest
+    container_name: cybernews-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - cybernews-network
+    restart: unless-stopped
+
+networks:
+  cybernews-network:
+    driver: bridge
+
+volumes:
+  cache:
+  logs:
+  data:
