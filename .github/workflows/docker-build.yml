@@ -84,26 +84,32 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Switch user for deployment
-            sudo su ${{ secrets.DEPLOY_USER }}
-
-            cd ${{ secrets.EC2_DEPLOY_PATH }}
-            
-            # Pull latest code from repository
-            git pull origin master
-            
-            # Login to GitHub Container Registry
-            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.USERNAME }} --password-stdin
-            
-            # Pull latest images
-            docker-compose pull
-            
-            # Stop and remove old containers, start new ones
-            docker-compose down
-            docker-compose up -d
-            
-            # Clean up old images
-            docker image prune -f
-            
-            echo "Deployment completed successfully!"
+            # Run deployment as the deploy user
+            sudo -u ${{ secrets.DEPLOY_USER }} bash -c '
+              cd ${{ secrets.EC2_DEPLOY_PATH }}
+              
+              # Fix git safe directory
+              git config --global --add safe.directory ${{ secrets.EC2_DEPLOY_PATH }}
+              
+              # Pull latest code from repository
+              git pull origin master
+              
+              # Export GitHub username for docker-compose
+              export USERNAME=${{ secrets.USERNAME }}
+              
+              # Login to GitHub Container Registry
+              echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.USERNAME }} --password-stdin
+              
+              # Pull latest images
+              docker-compose pull
+              
+              # Stop and remove old containers, start new ones
+              docker-compose down
+              docker-compose up -d
+              
+              # Clean up old images
+              docker image prune -f
+              
+              echo "Deployment completed successfully!"
+            '
 

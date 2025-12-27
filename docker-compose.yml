@@ -5,7 +5,7 @@ version: '3.8'
 
 services:
   backend:
-    image: ghcr.io/${GITHUB_USERNAME:-your-username}/cybernews-backend:latest
+    image: ghcr.io/${USERNAME:-your-username}/cybernews-backend:latest
     container_name: cybernews-backend
     ports:
       - "8000:8000"
@@ -31,7 +31,7 @@ services:
       start_period: 10s
 
   frontend:
-    image: ghcr.io/${GITHUB_USERNAME:-your-username}/cybernews-frontend:latest
+    image: ghcr.io/${USERNAME:-your-username}/cybernews-frontend:latest
     container_name: cybernews-frontend
     ports:
       - "3000:3000"
