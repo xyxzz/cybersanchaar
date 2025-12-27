@@ -1,0 +1,24 @@
+[Unit]
+Description=Cybersanchaar Gunicorn Application
+After=network.target
+
+[Service]
+Type=notify
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/cybersanchaar
+Environment="PATH=/home/ubuntu/cybersanchaar/news/bin"
+ExecStart=/home/ubuntu/cybersanchaar/news/bin/gunicorn \
+    --workers 3 \
+    --bind unix:/home/ubuntu/cybersanchaar/cybersanchaar.sock \
+    --timeout 120 \
+    --access-logfile /home/ubuntu/cybersanchaar/logs/gunicorn-access.log \
+    --error-logfile /home/ubuntu/cybersanchaar/logs/gunicorn-error.log \
+    --chdir /home/ubuntu/cybersanchaar \
+    wsgi:app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+
