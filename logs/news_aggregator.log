@@ -107,3 +107,158 @@ jinja2.exceptions.TemplateNotFound: index.html
 2025-08-30 15:56:11,026 - werkzeug - INFO - 127.0.0.1 - - [30/Aug/2025 15:56:11] "GET /api/news?days=1&limit=15&categories=research HTTP/1.1" 200 -
 2025-08-30 15:56:21,404 - werkzeug - INFO - 127.0.0.1 - - [30/Aug/2025 15:56:21] "GET /api/news?days=1&limit=15&categories=general HTTP/1.1" 200 -
 2025-08-30 17:48:45,286 - werkzeug - INFO - 127.0.0.1 - - [30/Aug/2025 17:48:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-16 23:20:26,347 - src.news_aggregator - INFO - Starting news update process
+2025-10-16 23:20:26,348 - src.news_aggregator - INFO - Fetching RSS feed: Krebs on Security
+2025-10-16 23:20:26,349 - src.news_aggregator - INFO - Fetching RSS feed: The Hacker News
+2025-10-16 23:20:26,349 - src.news_aggregator - INFO - Fetching RSS feed: Dark Reading
+2025-10-16 23:20:26,350 - src.news_aggregator - INFO - Fetching RSS feed: Threatpost
+2025-10-16 23:20:26,350 - src.news_aggregator - INFO - Fetching RSS feed: SecurityWeek
+2025-10-16 23:20:26,350 - src.news_aggregator - INFO - Fetching RSS feed: BleepingComputer
+2025-10-16 23:20:26,351 - src.news_aggregator - INFO - Fetching RSS feed: SANS Internet Storm Center
+2025-10-16 23:20:26,351 - src.news_aggregator - INFO - Fetching RSS feed: US-CERT Alerts
+2025-10-16 23:20:29,280 - src.news_aggregator - INFO - Cached 67 articles to cache/articles_20251016.json
+2025-10-16 23:20:29,280 - src.news_aggregator - INFO - Successfully fetched 67 articles
+2025-10-16 23:20:34,902 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-16 23:20:34,902 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-16 23:20:38,024 - werkzeug - INFO - 127.0.0.1 - - [16/Oct/2025 23:20:38] "GET / HTTP/1.1" 200 -
+2025-10-16 23:20:38,067 - werkzeug - INFO - 127.0.0.1 - - [16/Oct/2025 23:20:38] "GET /api/news?days=1&limit=15 HTTP/1.1" 200 -
+2025-10-16 23:20:38,072 - werkzeug - INFO - 127.0.0.1 - - [16/Oct/2025 23:20:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-16 23:20:52,605 - src.news_aggregator - INFO - Starting news update process
+2025-10-16 23:20:52,605 - src.news_aggregator - INFO - Fetching RSS feed: Krebs on Security
+2025-10-16 23:20:52,606 - src.news_aggregator - INFO - Fetching RSS feed: The Hacker News
+2025-10-16 23:20:52,606 - src.news_aggregator - INFO - Fetching RSS feed: Dark Reading
+2025-10-16 23:20:52,607 - src.news_aggregator - INFO - Fetching RSS feed: Threatpost
+2025-10-16 23:20:52,607 - src.news_aggregator - INFO - Fetching RSS feed: SecurityWeek
+2025-10-16 23:20:52,607 - src.news_aggregator - INFO - Fetching RSS feed: BleepingComputer
+2025-10-16 23:20:52,607 - src.news_aggregator - INFO - Fetching RSS feed: SANS Internet Storm Center
+2025-10-16 23:20:52,607 - src.news_aggregator - INFO - Fetching RSS feed: US-CERT Alerts
+2025-10-16 23:20:55,158 - src.news_aggregator - INFO - Cached 67 articles to cache/articles_20251016.json
+2025-10-16 23:20:55,159 - src.news_aggregator - INFO - Successfully fetched 67 articles
+2025-10-16 23:20:55,159 - werkzeug - INFO - 127.0.0.1 - - [16/Oct/2025 23:20:55] "GET /api/update HTTP/1.1" 200 -
+2025-10-16 23:20:56,917 - werkzeug - INFO - 127.0.0.1 - - [16/Oct/2025 23:20:56] "GET /api/news?days=1&limit=15 HTTP/1.1" 200 -
+2025-10-18 12:13:43,888 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-18 12:13:43,888 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-18 12:14:20,066 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-18 12:14:20,066 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-18 12:14:26,837 - werkzeug - INFO - 127.0.0.1 - - [18/Oct/2025 12:14:26] "GET / HTTP/1.1" 200 -
+2025-10-18 12:14:26,870 - werkzeug - INFO - 127.0.0.1 - - [18/Oct/2025 12:14:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-18 12:14:26,870 - werkzeug - INFO - 127.0.0.1 - - [18/Oct/2025 12:14:26] "GET /api/news?days=1&limit=15 HTTP/1.1" 200 -
+2025-10-18 12:14:30,484 - src.news_aggregator - INFO - Starting news update process
+2025-10-18 12:14:30,484 - src.news_aggregator - INFO - Fetching RSS feed: Krebs on Security
+2025-10-18 12:14:30,485 - src.news_aggregator - INFO - Fetching RSS feed: The Hacker News
+2025-10-18 12:14:30,485 - src.news_aggregator - INFO - Fetching RSS feed: Dark Reading
+2025-10-18 12:14:30,486 - src.news_aggregator - INFO - Fetching RSS feed: Threatpost
+2025-10-18 12:14:30,486 - src.news_aggregator - INFO - Fetching RSS feed: SecurityWeek
+2025-10-18 12:14:30,486 - src.news_aggregator - INFO - Fetching RSS feed: BleepingComputer
+2025-10-18 12:14:30,486 - src.news_aggregator - INFO - Fetching RSS feed: SANS Internet Storm Center
+2025-10-18 12:14:30,487 - src.news_aggregator - INFO - Fetching RSS feed: US-CERT Alerts
+2025-10-18 12:14:33,394 - src.news_aggregator - INFO - Cached 66 articles to cache/articles_20251018.json
+2025-10-18 12:14:33,394 - src.news_aggregator - INFO - Successfully fetched 66 articles
+2025-10-18 12:14:33,395 - werkzeug - INFO - 127.0.0.1 - - [18/Oct/2025 12:14:33] "GET /api/update HTTP/1.1" 200 -
+2025-10-18 12:14:34,678 - werkzeug - INFO - 127.0.0.1 - - [18/Oct/2025 12:14:34] "GET /api/news?days=1&limit=15 HTTP/1.1" 200 -
+2025-10-18 12:15:25,910 - werkzeug - INFO - 127.0.0.1 - - [18/Oct/2025 12:15:25] "GET /api/news?days=1&limit=15&categories=vulnerabilities HTTP/1.1" 200 -
+2025-10-18 12:15:27,591 - werkzeug - INFO - 127.0.0.1 - - [18/Oct/2025 12:15:27] "GET /api/news?days=1&limit=15&categories=vulnerabilities HTTP/1.1" 200 -
+2025-10-18 12:15:29,852 - werkzeug - INFO - 127.0.0.1 - - [18/Oct/2025 12:15:29] "GET /api/news?days=1&limit=15 HTTP/1.1" 200 -
+2025-12-27 13:49:02,266 - main - INFO - Starting Cyber News App v1.0.0
+2025-12-27 13:49:02,266 - main - INFO - API documentation available at /docs
+2025-12-27 13:49:02,266 - main - INFO - Cache directory: /home/antisocial/Projects/Cyber News/cache
+2025-12-27 13:49:02,266 - main - INFO - Logs directory: /home/antisocial/Projects/Cyber News/logs
+2025-12-27 13:49:06,573 - main - INFO - Shutting down Cyber News App
+2025-12-27 13:49:08,846 - main - INFO - Starting Cyber News App v1.0.0
+2025-12-27 13:49:08,846 - main - INFO - API documentation available at /docs
+2025-12-27 13:49:08,846 - main - INFO - Cache directory: /home/antisocial/Projects/Cyber News/cache
+2025-12-27 13:49:08,846 - main - INFO - Logs directory: /home/antisocial/Projects/Cyber News/logs
+2025-12-27 13:50:18,444 - main - INFO - Request: GET /docs
+2025-12-27 13:50:18,445 - main - INFO - Response: GET /docs Status: 200 Duration: 0.000s
+2025-12-27 13:50:18,654 - main - INFO - Request: GET /openapi.json
+2025-12-27 13:50:18,668 - main - INFO - Response: GET /openapi.json Status: 200 Duration: 0.014s
+2025-12-27 13:50:24,677 - main - INFO - Request: GET /api/news
+2025-12-27 13:50:24,678 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 13:50:39,851 - main - INFO - Request: GET /api/news
+2025-12-27 13:50:39,852 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 13:50:49,743 - main - INFO - Request: POST /api/update
+2025-12-27 13:50:49,744 - core.news_aggregator - INFO - Starting news update process
+2025-12-27 13:50:49,744 - core.news_aggregator - INFO - Fetching RSS feed: Krebs on Security
+2025-12-27 13:50:49,745 - core.news_aggregator - INFO - Fetching RSS feed: The Hacker News
+2025-12-27 13:50:49,745 - core.news_aggregator - INFO - Fetching RSS feed: Dark Reading
+2025-12-27 13:50:49,745 - core.news_aggregator - INFO - Fetching RSS feed: Threatpost
+2025-12-27 13:50:49,745 - core.news_aggregator - INFO - Fetching RSS feed: SecurityWeek
+2025-12-27 13:50:49,746 - core.news_aggregator - INFO - Fetching RSS feed: BleepingComputer
+2025-12-27 13:50:49,746 - core.news_aggregator - INFO - Fetching RSS feed: SANS Internet Storm Center
+2025-12-27 13:50:49,746 - core.news_aggregator - INFO - Fetching RSS feed: US-CERT Alerts
+2025-12-27 13:50:52,477 - core.news_aggregator - INFO - Cached 49 articles to /home/antisocial/Projects/Cyber News/cache/articles_20251227.json
+2025-12-27 13:50:52,477 - core.news_aggregator - INFO - Successfully fetched 49 articles
+2025-12-27 13:50:52,478 - main - INFO - Response: POST /api/update Status: 200 Duration: 2.735s
+2025-12-27 13:51:59,818 - main - INFO - Request: GET /docs
+2025-12-27 13:51:59,818 - main - INFO - Response: GET /docs Status: 200 Duration: 0.000s
+2025-12-27 13:51:59,893 - main - INFO - Request: GET /api/news
+2025-12-27 13:51:59,895 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.002s
+2025-12-27 13:51:59,989 - main - INFO - Request: GET /openapi.json
+2025-12-27 13:51:59,989 - main - INFO - Response: GET /openapi.json Status: 200 Duration: 0.000s
+2025-12-27 14:09:02,513 - main - INFO - Request: GET /api/news
+2025-12-27 14:09:02,515 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.002s
+2025-12-27 14:09:15,473 - main - INFO - Request: GET /api/news
+2025-12-27 14:09:15,474 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:09:19,186 - main - INFO - Request: GET /api/news
+2025-12-27 14:09:19,187 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:09:20,066 - main - INFO - Request: GET /api/news
+2025-12-27 14:09:20,068 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.002s
+2025-12-27 14:09:24,308 - main - INFO - Request: GET /api/news
+2025-12-27 14:09:24,310 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:10:05,012 - main - INFO - Request: GET /api/news
+2025-12-27 14:10:05,014 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:10:50,317 - main - INFO - Request: GET /api/news
+2025-12-27 14:10:50,319 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.002s
+2025-12-27 14:10:53,012 - main - INFO - Request: GET /api/news
+2025-12-27 14:10:53,014 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:10:53,633 - main - INFO - Request: GET /api/news
+2025-12-27 14:10:53,635 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:10:53,948 - main - INFO - Request: GET /api/news
+2025-12-27 14:10:53,949 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:11:04,260 - main - INFO - Request: GET /api/news
+2025-12-27 14:11:04,261 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:15:54,607 - main - INFO - Request: GET /api/news
+2025-12-27 14:15:54,608 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:16:14,744 - main - INFO - Request: GET /api/news
+2025-12-27 14:16:14,745 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:16:23,524 - main - INFO - Request: GET /api/news
+2025-12-27 14:16:23,526 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.002s
+2025-12-27 14:20:59,052 - main - INFO - Request: GET /api/news
+2025-12-27 14:20:59,053 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:21:44,498 - main - INFO - Request: GET /api/news
+2025-12-27 14:21:44,500 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:22:33,841 - main - INFO - Request: GET /api/news
+2025-12-27 14:22:33,842 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.002s
+2025-12-27 14:22:33,848 - main - INFO - Request: GET /api/news
+2025-12-27 14:22:33,849 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:24:45,741 - main - INFO - Request: GET /api/news
+2025-12-27 14:24:45,742 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:54:13,212 - main - INFO - Starting Cyber News App v1.0.0
+2025-12-27 14:54:13,212 - main - INFO - API documentation available at /docs
+2025-12-27 14:54:13,212 - main - INFO - Cache directory: /home/antisocial/Projects/Cyber News/cache
+2025-12-27 14:54:13,212 - main - INFO - Logs directory: /home/antisocial/Projects/Cyber News/logs
+2025-12-27 14:54:57,424 - main - INFO - Request: GET /docs
+2025-12-27 14:54:57,424 - main - INFO - Response: GET /docs Status: 200 Duration: 0.000s
+2025-12-27 14:54:57,565 - main - INFO - Request: GET /openapi.json
+2025-12-27 14:54:57,580 - main - INFO - Response: GET /openapi.json Status: 200 Duration: 0.015s
+2025-12-27 14:55:00,309 - main - INFO - Request: GET /api/news
+2025-12-27 14:55:00,311 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.002s
+2025-12-27 14:55:08,590 - main - INFO - Request: POST /api/update
+2025-12-27 14:55:08,590 - core.news_aggregator - INFO - Starting news update process
+2025-12-27 14:55:08,590 - core.news_aggregator - INFO - Fetching RSS feed: Krebs on Security
+2025-12-27 14:55:08,591 - core.news_aggregator - INFO - Fetching RSS feed: The Hacker News
+2025-12-27 14:55:08,591 - core.news_aggregator - INFO - Fetching RSS feed: Dark Reading
+2025-12-27 14:55:08,591 - core.news_aggregator - INFO - Fetching RSS feed: Threatpost
+2025-12-27 14:55:08,592 - core.news_aggregator - INFO - Fetching RSS feed: SecurityWeek
+2025-12-27 14:55:08,592 - core.news_aggregator - INFO - Fetching RSS feed: BleepingComputer
+2025-12-27 14:55:08,592 - core.news_aggregator - INFO - Fetching RSS feed: SANS Internet Storm Center
+2025-12-27 14:55:08,592 - core.news_aggregator - INFO - Fetching RSS feed: US-CERT Alerts
+2025-12-27 14:55:11,214 - core.news_aggregator - INFO - Cached 49 articles to /home/antisocial/Projects/Cyber News/cache/articles_20251227.json
+2025-12-27 14:55:11,215 - core.news_aggregator - INFO - Successfully fetched 49 articles
+2025-12-27 14:55:11,215 - main - INFO - Response: POST /api/update Status: 200 Duration: 2.626s
+2025-12-27 14:55:11,223 - main - INFO - Request: GET /api/news
+2025-12-27 14:55:11,224 - main - INFO - Response: GET /api/news Status: 200 Duration: 0.001s
+2025-12-27 14:55:35,017 - main - INFO - Shutting down Cyber News App

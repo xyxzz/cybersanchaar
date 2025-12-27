@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Node.js
+node_modules/
+.next/
+out/
+.npm
+.yarn/
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+cs
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/*.log
+logs
+
+# Cache (keep directory structure)
+cache/*.json
+!cache/.gitkeep
+
+# Data
+data/*
+!data/.gitkeep
+
+# Testing
+.pytest_cache/
+coverage/
+*.cover
+.coverage
+
+# Build
+*.pyc
+*.pyo
+
