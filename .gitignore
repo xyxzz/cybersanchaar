@@ -39,7 +39,6 @@ cs
 Thumbs.db
 
 # Logs
-logs/*.log
 logs
 
 # Cache (keep directory structure)

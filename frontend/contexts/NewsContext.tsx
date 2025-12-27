@@ -56,10 +56,9 @@ export function NewsProvider({ children }: { children: ReactNode }) {
     setError(null);
     
     try {
-      const result = await apiUpdateNews();
+      await apiUpdateNews();
       // After updating, reload the news
       await loadNews();
-      return result;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to update news';
       setError(errorMessage);
